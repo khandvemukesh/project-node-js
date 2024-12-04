@@ -23,4 +23,12 @@ app.use(express.static("public"))
 // We use this setting for cookie is set in to user browser
 app.use(cookieParser()) 
 
-export{app}
+
+//router import
+import userRouter from './routes/user.router.js'
+
+//routes declaration
+app.use("/api/v1/users", userRouter)
+
+// http://localhost:8000/api/v1/users/register
+export {app}
