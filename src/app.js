@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 // This setting using for config express middeware
-const app = express();
+const app = express()
 
 // Use this setting for "Cross-Origin Resource Sharing"
 app.use(cors({
