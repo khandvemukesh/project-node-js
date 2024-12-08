@@ -1,7 +1,8 @@
-import {v2 as cloudinary} from 'cloudinary';
+import {v2 as cloudinary} from "cloudinary";
+//import exp from 'constants';
 import fs from 'fs' // It is In-build Package in Node Js 
 
-(async function(){
+
   
   // Configuration
   cloudinary.config({
@@ -40,19 +41,20 @@ import fs from 'fs' // It is In-build Package in Node Js
 // console.log(uploadResult);
 
 // Optimize delivery by resizing and applying auto-format and auto-quntiy
-const optimizeUrl= cloudinary.url('shoes',{
-    fetch_format:'auto',
-    quality:'auto'
-});
-console.log(optimizeUrl);
+// const optimizeUrl= cloudinary.url('shoes',{
+//     fetch_format:'auto',
+//     quality:'auto'
+// });
+// console.log(optimizeUrl);
 
 // Transform the image: auto-crop to square aspect_ratio
 
-const autoCropUrl= cloudinary.url('shoes',{
-  crop:'auto',
-  gravity:'auto',
-  width:500,
-  height:500,
-});
-console.log(autoCropUrl);
-})();
+// const autoCropUrl= cloudinary.url('shoes',{
+//   crop:'auto',
+//   gravity:'auto',
+//   width:500,
+//   height:500,
+// });
+// console.log(autoCropUrl);
+
+export {uploadOnCloudinary}

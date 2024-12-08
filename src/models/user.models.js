@@ -51,7 +51,7 @@ const userSchema=new Schema({
 
 userSchema.pre("save", async function(next){
 if(!this.isModified("password")) return next(); // if password is modified go next field
-this.password=bcrypt.hash(this.password, 10) //passows hash pattern 
+this.password= await bcrypt.hash(this.password, 10) //passows hash pattern 
 next()
 })
 //This code is compare the password
@@ -85,4 +85,4 @@ userSchema.methods.generateRefreshToken=function(){
         }
     )
 }
-export const user=mongoose.model("User",userSchema)
+export const User=mongoose.model("User",userSchema)
