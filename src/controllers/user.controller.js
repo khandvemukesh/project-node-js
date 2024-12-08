@@ -14,21 +14,21 @@ const registerUser= asyncHandler(async (req, res)=>{
   // remove password and refresh token field form response
   // check for user creation
   // return res
-  const {fullname, email, username, password}= req.body
+  const {fullName, email, username, password}= req.body
   //console.log("email :",email);
 //   if(fullName===""){
 //     throw new ApiError(400, "fullname is required")
 //   }
 
 // Validation All Text and number Fields
-if([fullname, email , username, password].some((field)=>
+if([fullName, email , username, password].some((field)=>
     field?.trim()==="")){
    throw new ApiError(400, "ALl fields are required")
 }
 
 
 // Check User Are Existed or not
-const existedUser= User.findOne(
+const existedUser= await User.findOne(
     {$or:[{email, username}]})
 
 console.log(existedUser)
@@ -42,7 +42,11 @@ if(existedUser){
 
 // check avatar image
 const avatarLocalPath =req.files?.avatar[0]?.path;
-const coverImageLocalPath =req.files?.coverImage[0]?.path;
+//const coverImageLocalPath =req.files?.coverImage[0]?.path;
+let coverImageLocalPath;
+if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+    coverImageLocalPath =req.files.coverImage[0].path
+}
 
 if(!avatarLocalPath){
     throw new ApiError(400, 'Avatar File is required');
@@ -57,7 +61,7 @@ if(!avatar){
 //Entry IN DataBase
  const user= await User.create({
     fullName,
-    avatar:avatar,
+    avatar:avatar?.url,
     coverImage:coverImage?.url || "",
     email,
     password,
@@ -73,9 +77,7 @@ if(!avatar){
   }
   // What Api-response send data
 
-return res.status(201).json(
-    new ApiResponse(200, createUser, "User Registered Successfully")
-);
+return res.status(201).json(new ApiResponse(200, createUser, "User Registered Successfully"));
 
 });
 export {
