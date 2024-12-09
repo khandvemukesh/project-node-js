@@ -120,7 +120,7 @@ const loginUser = asyncHandler(async (req, res)=>{
   }
 
   //find the username and email
-  const user= User.findOne({
+  const user= await User.findOne({
     $or:[{email}, {username}]
   })
 
@@ -140,7 +140,7 @@ const loginUser = asyncHandler(async (req, res)=>{
  const {accessToken, refreshToken}=await generateAccessAndRefreshTokens(user._id)
  
 //unvaild unwanted
-const loggedInUser = awaitUser.findById(user._id).select("-password -refreshToken")
+const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
 //send cookies token
 const options ={
